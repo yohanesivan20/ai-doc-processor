@@ -1,66 +1,300 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 AI Document Processor (Laravel + OCR + AI)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+AI Document Processor adalah aplikasi backend berbasis Laravel yang mampu:
 
-## About Laravel
+* 📄 Mengupload dokumen (PDF / Image)
+* 🔍 Melakukan OCR (Optical Character Recognition)
+* 🤖 Mengekstrak data terstruktur menggunakan AI (LLM via Ollama)
+* ⚙️ Memproses data secara asynchronous menggunakan Queue
+* 📦 Menghasilkan output JSON siap pakai (invoice parsing)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 🧠 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* ✅ Upload dokumen (PDF / JPG / PNG)
+* ✅ OCR menggunakan Tesseract
+* ✅ PDF → Image conversion menggunakan Poppler
+* ✅ AI Extraction (Invoice parsing)
+* ✅ Queue system (background processing)
+* ✅ Logging & error handling
+* ✅ REST API ready
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# 🏗️ Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* **Backend**: Laravel 10 (PHP)
+* **Database**: MySQL
+* **OCR Engine**: Tesseract OCR
+* **PDF Converter**: Poppler (pdftoppm)
+* **AI Engine**: Ollama (Mistral / LLaMA / lainnya)
+* **Queue**: Laravel Queue (Database / Redis)
+* **HTTP Client**: Laravel HTTP Client
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+# 🔄 System Flow
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```text
+Upload Document
+     ↓
+PDF → Image (Poppler)
+     ↓
+OCR (Tesseract)
+     ↓
+Text Cleaning
+     ↓
+AI Extraction (Ollama)
+     ↓
+Structured JSON Result
+     ↓
+Stored in Database
+```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+# 📦 Installation & Setup
 
-## Contributing
+## 1. Clone Repository
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/your-username/ai-doc-processor.git
+cd ai-doc-processor
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 2. Install Dependencies
 
-## Security Vulnerabilities
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 3. Setup Environment
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+---
+
+## 4. Configure Database
+
+Edit `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ai_doc
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+---
+
+## 5. Run Migration
+
+```bash
+php artisan migrate
+```
+
+---
+
+# ⚙️ Install Dependencies (WAJIB)
+
+## 🔥 1. Install Tesseract OCR
+
+Download:
+https://github.com/tesseract-ocr/tesseract
+
+Set path di `.env`:
+
+```env
+TESSERACT_PATH="C:/Program Files/Tesseract-OCR/tesseract.exe"
+```
+
+Test:
+
+```bash
+tesseract -v
+```
+
+---
+
+## 🔥 2. Install Poppler (PDF → Image)
+
+### Windows (Chocolatey)
+
+```bash
+choco install poppler
+```
+
+Test:
+
+```bash
+pdftoppm -h
+```
+
+---
+
+## 🔥 3. Install Ollama
+
+Download:
+https://ollama.com
+
+Jalankan:
+
+```bash
+ollama run mistral
+```
+
+Atau:
+
+```bash
+ollama serve
+```
+
+---
+
+## 🔧 Setup di `.env`
+
+```env
+OLLAMA_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=mistral
+OLLAMA_TIMEOUT=60
+```
+
+---
+
+# 🚀 Running the Project
+
+## 1. Jalankan Laravel
+
+```bash
+php artisan serve
+```
+
+---
+
+## 2. Jalankan Queue Worker
+
+```bash
+php artisan queue:work
+```
+
+---
+
+## 3. Jalankan Ollama
+
+```bash
+ollama serve
+```
+
+---
+
+# 📡 API Usage
+
+## Upload Document
+
+```http
+POST /api/documents
+```
+
+### Request:
+
+* file (Image : JPEG, JPG, PNG)
+
+---
+
+## Response:
+
+```json
+{
+  "id": 1,
+  "status": "pending"
+}
+```
+
+---
+
+## Setelah diproses:
+
+```json
+{
+  "invoice_number": "INV-2026-001",
+  "date": "2026-04-20",
+  "vendor": "PT Sumber Rejeki",
+  "customer": "PT Maju Mundur",
+  "total": 6600000
+}
+```
+
+---
+
+# 🧪 Sample Input (Invoice)
+
+```
+PT Maju Mundur
+Vendor: PT Sumber Rejeki
+Web Development Service Rp 5,000,000
+Hosting Rp 1,000,000
+Total: Rp 6,600,000
+```
+
+---
+
+# ⚠️ Known Limitations
+
+* OCR akurasi tergantung kualitas dokumen
+* AI bisa menghasilkan JSON tidak valid (sudah di-handle parser)
+* Ollama membutuhkan resource cukup besar (RAM/CPU)
+* Belum support multi-page parsing secara penuh
+
+---
+
+# 🔮 Future Improvements
+
+* 📊 Dashboard UI
+* 📈 Confidence score extraction
+* 📑 Multi-page PDF support
+* 📦 Export ke Excel / Google Sheets
+* 🔐 Authentication system
+* 🌐 Deploy full SaaS
+
+---
+
+# 🚀 Deployment
+
+Project ini bisa di-deploy menggunakan:
+
+* Docker
+* Render (Free Tier)
+* VPS (untuk Ollama)
+
+---
+
+# 🧠 Why This Project?
+
+Project ini dibuat untuk:
+
+* Menunjukkan kemampuan backend engineering
+* Mengintegrasikan OCR + AI
+* Membangun real-world document processing system
+* Demonstrasi penggunaan queue & async processing
+
+---
+
+# 👨‍💻 Author
+
+Developed by [Your Name]
+
+---
+
+# ⭐ Support
+
+Jika project ini membantu, silakan beri ⭐ di repository ini!
