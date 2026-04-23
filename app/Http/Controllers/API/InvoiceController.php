@@ -67,7 +67,7 @@ class InvoiceController extends Controller
         }
 
 
-        $path = $request->file('file')->store('documents');
+        $path = $request->file('file')->store('documents','public');
 
         $doc = Document::create([
             'file_path' => $path,

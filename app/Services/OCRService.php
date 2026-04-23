@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class OCRService
 {
@@ -12,7 +13,7 @@ class OCRService
             'path' => $path
         ]);
 
-        $fullPath = storage_path('app/' . $path);
+        $fullPath = Storage::disk('public')->path($path);
 
         if (!file_exists($fullPath)) {
             Log::error('OCR: File not found', [
