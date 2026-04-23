@@ -1,8 +1,8 @@
-# 🚀 AI Document Processor (Laravel + OCR + AI)
+# 🚀 AI Invoice Processor (Laravel + OCR + AI)
 
-AI Document Processor adalah aplikasi backend berbasis Laravel yang mampu:
+AI Invoice Processor adalah aplikasi backend berbasis Laravel yang mampu:
 
-* 📄 Mengupload dokumen (PDF / Image)
+* 📄 Mengupload dokumen Image dalam format (JPEG, JPG, PNG)
 * 🔍 Melakukan OCR (Optical Character Recognition)
 * 🤖 Mengekstrak data terstruktur menggunakan AI (LLM via Ollama)
 * ⚙️ Memproses data secara asynchronous menggunakan Queue
@@ -12,9 +12,8 @@ AI Document Processor adalah aplikasi backend berbasis Laravel yang mampu:
 
 # 🧠 Features
 
-* ✅ Upload dokumen (PDF / JPG / PNG)
+* ✅ Upload invoice dalam format (JPG / PNG)
 * ✅ OCR menggunakan Tesseract
-* ✅ PDF → Image conversion menggunakan Poppler
 * ✅ AI Extraction (Invoice parsing)
 * ✅ Queue system (background processing)
 * ✅ Logging & error handling
@@ -27,7 +26,6 @@ AI Document Processor adalah aplikasi backend berbasis Laravel yang mampu:
 * **Backend**: Laravel 10 (PHP)
 * **Database**: MySQL
 * **OCR Engine**: Tesseract OCR
-* **PDF Converter**: Poppler (pdftoppm)
 * **AI Engine**: Ollama (Mistral / LLaMA / lainnya)
 * **Queue**: Laravel Queue (Database / Redis)
 * **HTTP Client**: Laravel HTTP Client
@@ -38,8 +36,6 @@ AI Document Processor adalah aplikasi backend berbasis Laravel yang mampu:
 
 ```text
 Upload Document
-     ↓
-PDF → Image (Poppler)
      ↓
 OCR (Tesseract)
      ↓
@@ -126,23 +122,7 @@ tesseract -v
 
 ---
 
-## 🔥 2. Install Poppler (PDF → Image)
-
-### Windows (Chocolatey)
-
-```bash
-choco install poppler
-```
-
-Test:
-
-```bash
-pdftoppm -h
-```
-
----
-
-## 🔥 3. Install Ollama
+## 🔥 2. Install Ollama
 
 Download:
 https://ollama.com
@@ -199,10 +179,10 @@ ollama serve
 
 # 📡 API Usage
 
-## Upload Document
+## Upload Image
 
 ```http
-POST /api/documents
+POST /api/invoices
 ```
 
 ### Request:
@@ -223,6 +203,11 @@ POST /api/documents
 ---
 
 ## Setelah diproses:
+
+```http
+GET /api/invoices
+GET /api/invoices/{id}
+```
 
 ```json
 {
@@ -268,16 +253,6 @@ Total: Rp 6,600,000
 
 ---
 
-# 🚀 Deployment
-
-Project ini bisa di-deploy menggunakan:
-
-* Docker
-* Render (Free Tier)
-* VPS (untuk Ollama)
-
----
-
 # 🧠 Why This Project?
 
 Project ini dibuat untuk:
@@ -291,7 +266,7 @@ Project ini dibuat untuk:
 
 # 👨‍💻 Author
 
-Developed by [Your Name]
+Developed by [Ivan Danasuta]
 
 ---
 
